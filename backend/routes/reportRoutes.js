@@ -12,4 +12,5 @@ router.post('/upload', protect, upload.single('file'), uploadReport);
 // ✅ Get reports by user ID
 router.get('/:userId', protect, getReports); // <--- THIS IS REQUIRED
 
+
 export default router;
