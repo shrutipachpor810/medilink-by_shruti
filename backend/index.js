@@ -24,13 +24,9 @@ const app = express();
 
 // CORS config (allow frontend at 5173 to access backend)
 app.use(cors({
-<<<<<<< HEAD
   origin: 'http://localhost:8081', // frontend dev server
-=======
-  origin: "http://localhost:5173",
->>>>>>> c8b66be488c22e178a39c5052a6fceb889988620
   credentials: true
-}));
+}));  
 
 // Middleware to parse incoming JSON
 app.use(express.json());

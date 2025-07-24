@@ -17,7 +17,7 @@ export const uploadReport = async (req, res) => {
 
     const newReport = new Report({
       patientId: req.body.patientId,
-      doctorId: req.body.doctorId,
+      doctorId: req.body.doctorId || null,
       fileUrl: filePath,
       extractedText,
       uploadedAt: new Date()

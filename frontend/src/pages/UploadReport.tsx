@@ -14,8 +14,17 @@ const user = JSON.parse(localStorage.getItem("user") || "{}");
 const token = localStorage.getItem("token");
 const patientId = user?._id;
 
+type Report = {
+  _id?: string; // if coming from backend
+  name: string;
+  notes: string;
+  fileUrl: string;
+  uploadedAt?: string;
+  extractedText?: string; 
+};
+
 const UploadReport = () => {
-  const [uploadedReports, setUploadedReports] = useState<any[]>([]);
+  const [uploadedReports, setUploadedReports] = useState<Report[]>([]);
   const [dragActive, setDragActive] = useState(false);
   const [reportName, setReportName] = useState("");
   const [reportNotes, setReportNotes] = useState("");
@@ -57,21 +66,26 @@ const UploadReport = () => {
   };
 
   const handleFiles = async (files: FileList) => {
-    const file = files[0];
-    if (!file) return;
+    if (!user || !user._id) {
+    toast.error("User not logged in");
+    return;
+  }
 
+  const file = files[0];
+  if (!file) return;
+  
     if (!(file.type.startsWith("image/") || file.type === "application/pdf")) {
-      toast.error("Only PDF, JPG, PNG files allowed");
+      toast.error("Only JPG, PNG files allowed");
       return;
     }
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("patientId", patientId);
-    if (doctorId) {
-    formData.append("doctorId", doctorId); // only if valid
-    } // Placeholder until you implement doctor selection
+    formData.append("patientId", user._id);
+    formData.append("doctorId", user?.role === "doctor" ? user._id : "");
     formData.append("notes", reportNotes);
+
+    console.log("Uploading with patientId:", user?._id);
 
     try {
       setLoading(true);
@@ -86,24 +100,27 @@ const UploadReport = () => {
       setUploadedReports((prev) => [res.data, ...prev]);
       setReportName("");
       setReportNotes("");
-    } catch (err: any) {
-  if (err.response) {
-    // Server responded but with error status
-    console.error("Upload failed: Response error", {
-      status: err.response.status,
-      data: err.response.data,
-    });
-    toast.error(`Upload failed: ${err.response.status} - ${err.response.data?.message || "Server Error"}`);
-  } else if (err.request) {
-    // Request made, no response
-    console.error("Upload failed: No response from server", err.request);
-    toast.error("Upload failed: No response from server");
+    } catch (err: unknown) {
+  if (axios.isAxiosError(err)) {
+    if (err.response) {
+      console.error("Upload failed: Response error", {
+        status: err.response.status,
+        data: err.response.data,
+      });
+      toast.error(`Upload failed: ${err.response.status} - ${err.response.data?.message || "Server Error"}`);
+    } else if (err.request) {
+      console.error("Upload failed: No response from server", err.request);
+      toast.error("Upload failed: No response from server");
+    } else {
+      console.error("Upload failed: Axios error", err.message);
+      toast.error(`Upload error: ${err.message}`);
+    }
   } else {
-    // Something else triggered error
-    console.error("Upload failed: Error setting up request", err.message);
-    toast.error(`Upload error: ${err.message}`);
+    console.error("Upload failed: Unknown error", err);
+    toast.error("Upload failed: An unexpected error occurred");
   }
 }
+
   };
 
   const handleDelete = async (id: string) => {
