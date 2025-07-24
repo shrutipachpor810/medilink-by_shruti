@@ -1,3 +1,5 @@
+import User from "../models/userModel.js";
+
 // GET /users/profile
 const getProfile = async (req, res) => {
   const user = req.user;
@@ -35,4 +37,16 @@ const updateProfile = async (req, res) => {
   }
 };
 
-export { getProfile, updateProfile };
+//GET /users/doctors
+const getDoctors = async (req, res) => {
+  try {
+    const doctors = await User.find({ role: "doctor" }).select("-password"); // hide password
+    res.json(doctors);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).json({ message: "Failed to fetch doctors" });
+  }
+};
+
+
+export { getProfile, updateProfile,getDoctors };

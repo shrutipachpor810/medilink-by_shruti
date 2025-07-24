@@ -15,7 +15,7 @@ connectDB();
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173',  // frontend dev server
+  origin: 'http://localhost:8081', // frontend dev server
   credentials: true
 }));
 
