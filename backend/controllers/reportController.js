@@ -1,6 +1,7 @@
 import Tesseract from 'tesseract.js';
 import Report from '../models/reportModel.js';
 
+
 // 📤 Upload report with OCR (for image files only)
 export const uploadReport = async (req, res) => {
   try {
