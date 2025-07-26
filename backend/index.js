@@ -12,6 +12,7 @@ import appointmentRoutes from "./routes/appointmentRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import doctorRoutes from "./routes/doctorRoutes.js";
 import chatbotRoutes from "./routes/chatbot.js";
+import healthRoutes from './routes/healthRoutes.js';
 
 // Load env variables
 dotenv.config();
@@ -38,6 +39,7 @@ app.use("/reports", reportRoutes);
 app.use("/chatbot", chatbotRoutes);
 
 app.use("/api/doctor", doctorRoutes);
+app.use('/api', healthRoutes);
 // Start server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
