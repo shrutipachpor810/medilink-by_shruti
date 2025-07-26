@@ -25,7 +25,7 @@ const app = express();
 app.use(cors({
   origin: 'http://localhost:8081', // frontend dev server
   credentials: true
-}));
+}));  
 
 // Middleware to parse incoming JSON
 app.use(express.json());
