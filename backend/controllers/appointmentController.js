@@ -2,10 +2,11 @@ import Appointment from "../models/appointmentModel.js";
 
 const createAppointment = async (req, res) => {
   try {
-    const { name, email, phone, date, message } = req.body;
+    const { name, email, phone, date, message, doctorId } = req.body;
 
     const newAppointment = await Appointment.create({
-      patientId: req.user._id,  // from auth token
+      patientId: req.user._id, 
+      doctorId, // from auth token
       name,
       email,
       phone,
@@ -24,17 +25,21 @@ const createAppointment = async (req, res) => {
 const getAppointments = async (req, res) => {
   try {
     const role = req.query.role;
-    const filter =
-      role === "doctor"
-        ? { doctorId: req.user._id }
-        : { patientId: req.user._id };
+    const filter = role === "doctor" ? { doctorId: req.user._id } : { patientId: req.user._id };
+
+    console.log("🧠 ROLE:", role);
+    console.log("👤 USER ID:", req.user._id);
+    console.log("🕵️ FILTER:", filter);
 
     const appointments = await Appointment.find(filter);
+    console.log("📆 Appointments:", appointments);
+
     res.json(appointments);
   } catch (error) {
     res.status(500).json({ message: "Error fetching appointments", error });
   }
 };
+
 
 const updateAppointmentStatus = async (req, res) => {
   try {

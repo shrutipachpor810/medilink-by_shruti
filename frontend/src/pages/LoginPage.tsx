@@ -33,15 +33,17 @@ const LoginPage = () => {
       // Store user in local storage
       localStorage.setItem("token", userData.token);
       localStorage.setItem("currentUser", JSON.stringify(userData.user)); // optionally store user info
-
+      localStorage.setItem("userId", userData.user._id);
+      localStorage.setItem("role", userData.user.role);
       toast.success("Welcome back!");
 
       // Navigate based on role
-      if (userData.role === "doctor") {
+      if (userData.user.role === "doctor") {
         navigate("/doctor-dashboard");
       } else {
         navigate("/patient-dashboard");
       }
+      window.location.reload(); 
     } catch (err: any) {
       const errorMsg = err?.response?.data?.message || "Login failed. Try again.";
       toast.error(errorMsg);

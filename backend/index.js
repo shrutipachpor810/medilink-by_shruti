@@ -10,9 +10,8 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
-
 import doctorRoutes from "./routes/doctorRoutes.js";
-
+import chatbotRoutes from "./routes/chatbot.js";
 
 // Load env variables
 dotenv.config();
@@ -24,11 +23,7 @@ const app = express();
 
 // CORS config (allow frontend at 5173 to access backend)
 app.use(cors({
-<<<<<<< HEAD
   origin: 'http://localhost:8081', // frontend dev server
-=======
-  origin: "http://localhost:5173",
->>>>>>> c8b66be488c22e178a39c5052a6fceb889988620
   credentials: true
 }));
 
@@ -40,6 +35,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/appointments", appointmentRoutes);
 app.use("/reports", reportRoutes);
+app.use("/chatbot", chatbotRoutes);
 
 app.use("/api/doctor", doctorRoutes);
 // Start server

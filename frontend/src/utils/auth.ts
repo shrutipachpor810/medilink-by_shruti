@@ -11,9 +11,16 @@ export const getToken = (): string | null => {
   return localStorage.getItem("token");
 };
 
+
 export const getRole = () => {
   const user = localStorage.getItem("user");
   return user ? JSON.parse(user)?.role : null;
+};
+
+//get userId
+export const getUserId = (): string | null => {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user)?._id : null;
 };
 
 

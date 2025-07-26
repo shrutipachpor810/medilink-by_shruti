@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,13 +7,15 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import PatientDashboard from "./pages/PatientDashboard";
-import DoctorDashboard from "./pages/DoctorDashboard";
-import BookAppointment from "./pages/BookAppointment";
-import ViewAppointments from "./pages/ViewAppointments";
-import UploadReport from "./pages/UploadReport";
-import ProfilePage from "./pages/ProfilePage";
-
+import PatientDashboard from "./pages/dashboard/PatientDashboard";
+import DoctorDashboard from "./pages/dashboard/DoctorDashboard";
+import BookAppointment from "./pages/appointments/BookAppointment";
+import ViewAppointments from "./pages/appointments/ViewAppointments";
+import UploadReport from "./pages/reports/UploadReport";
+import ViewReports from "./pages/reports/ViewReports";
+import ProfilePage from "./pages/profile/ProfilePage";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import RoleBasedDashboard from "./pages/RoleBasedDashboard";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -27,12 +28,69 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/patient-dashboard" element={<PatientDashboard />} />
-          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-          <Route path="/book-appointment" element={<BookAppointment />} />
-          <Route path="/view-appointments" element={<ViewAppointments />} />
-          <Route path="/upload-report" element={<UploadReport />} />
-          <Route path="/profile" element={<ProfilePage />} />
+
+          {/* Role-based routes */}
+          <Route
+            path="/book-appointment"
+            element={
+              <ProtectedRoute allowedRoles={['patient']}>
+                <BookAppointment />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/upload-report"
+            element={
+              <ProtectedRoute allowedRoles={['patient']}>
+                <UploadReport />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-reports"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <ViewReports />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-appointments"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <ViewAppointments />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute allowedRoles={['doctor','patient']}>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/dashboard" element={<RoleBasedDashboard />} />
+
+          {/* Dashboards (you can guard them too if needed) */}
+          <Route
+            path="/doctor-dashboard"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <DoctorDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/patient-dashboard"
+            element={
+              <ProtectedRoute allowedRoles={['patient']}>
+                <PatientDashboard />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

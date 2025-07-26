@@ -12,7 +12,7 @@ import { Heart, ArrowLeft, CalendarIcon, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import axios from "../utils/axios";
+import axios from "../../utils/axios";
 
 interface Doctor {
   _id: string;
@@ -24,6 +24,7 @@ const BookAppointment = () => {
   const [date, setDate] = useState<Date>();
   const [formData, setFormData] = useState({
     doctor: "",
+    doctorName: "",
     time: "",
     reason: "",
     notes: "",
@@ -66,6 +67,8 @@ const BookAppointment = () => {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
+        doctorId: formData.doctor, 
+        doctorName: formData.doctorName,
         date: new Date(date.setHours(Number(formData.time.split(":")[0]), Number(formData.time.split(":")[1]))),
         message: `${formData.reason}${formData.notes ? " - " + formData.notes : ""}`
       };
@@ -124,10 +127,10 @@ const BookAppointment = () => {
                     {doctors.map((doctor) => (
                       <div
                         key={doctor._id}
-                        onClick={() => setFormData({ ...formData, doctor: doctor.name })}
+                        onClick={() => setFormData({ ...formData,doctor: doctor._id, doctorName: doctor.name })}
                         className={cn(
                           "flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all",
-                          formData.doctor === doctor.name
+                          formData.doctor === doctor._id
                             ? "border-blue-500 bg-blue-50"
                             : "border-slate-200 hover:border-slate-300"
                         )}

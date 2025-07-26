@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Heart, ArrowLeft, Calendar, Clock, User, FileText } from "lucide-react";
 import { format } from "date-fns";
-import axios from "../utils/axios";
+import axios from "../../utils/axios";
 
 const ViewAppointments = () => {
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -13,8 +13,10 @@ const ViewAppointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const role = localStorage.getItem("role") || "patient";
+      const role = localStorage.getItem("role") || "doctor";
+      console.log("User role:", role);
       const res = await axios.get(`/appointments?role=${role}`);
+      const isDoctor = role === "doctor";
       setAppointments(res.data);
     } catch (err) {
       console.error("❌ Error fetching appointments:", err);
@@ -76,7 +78,7 @@ const ViewAppointments = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link to="/patient-dashboard">
+              <Link to="/doctor-dashboard">
                 <Button variant="ghost" size="sm">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back

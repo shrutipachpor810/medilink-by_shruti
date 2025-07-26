@@ -34,12 +34,12 @@ export const uploadReport = async (req, res) => {
 // 📥 Get all reports by user ID (doctor or patient)
 export const getReports = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
 
     const reports = await Report.find({
       $or: [
-        { patientId: userId },
-        { doctorId: userId }
+        { patientId: req.userId  },
+        { doctorId: req.userId  }
       ]
     });
 

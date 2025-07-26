@@ -13,6 +13,7 @@ const DoctorDashboard = () => {
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       setUser(JSON.parse(currentUser));
+      localStorage.setItem("role", "doctor");
     } else {
       navigate('/login');
     }
@@ -51,7 +52,7 @@ const DoctorDashboard = () => {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-slate-800 mb-2">
-            Welcome, Dr. {user.fullName}! 👩‍⚕️
+            Welcome, {user.fullName||'Doctor'}! 👩‍⚕️
           </h2>
           <p className="text-slate-600 text-lg">
             Manage your practice and care for your patients
@@ -59,23 +60,25 @@ const DoctorDashboard = () => {
         </div>
 
         {/* Feature Cards */}
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Link to="/view-appointments">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer h-full">
               <CardHeader className="pb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                  <Calendar className="h-6 w-6 text-blue-600" />
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <FileText className="h-6 w-6 text-green-600" />
                 </div>
-                <CardTitle className="text-xl text-slate-800">My Appointments</CardTitle>
+                <CardTitle className="text-xl text-slate-800">View Appointments</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-slate-600">
-                  View and manage your upcoming patient appointments
+                  Check your upcoming and past appointments with detailed information
                 </p>
               </CardContent>
             </Card>
           </Link>
 
+        <Link to="/view-reports">
           <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer h-full">
             <CardHeader className="pb-4">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
@@ -89,6 +92,7 @@ const DoctorDashboard = () => {
               </p>
             </CardContent>
           </Card>
+        </Link>
 
           <Link to="/profile">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer h-full">
