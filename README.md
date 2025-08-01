@@ -1,6 +1,8 @@
 🩺 MediLink – Smart Medical Appointment & Health Record System
 MediLink is a full-stack healthcare web application built using the MERN stack, designed to streamline the medical appointment process for both patients and doctors.
 
+🔗 Built in collaboration with https://github.com/shrutipachpor810
+
 ✨ Features:
 🔐 Authentication & Role-based Access – Secure signup/login with roles (Doctor/Patient)
 📅 Appointment Booking – Patients can book appointments directly with doctors
