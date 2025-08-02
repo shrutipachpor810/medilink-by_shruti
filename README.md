@@ -5,12 +5,19 @@ MediLink is a full-stack healthcare web application built using the MERN stack, 
 
 ✨ Features:
 🔐 Authentication & Role-based Access – Secure signup/login with roles (Doctor/Patient)
+
 📅 Appointment Booking – Patients can book appointments directly with doctors
+
 📄 OCR-based Medical Report Upload – Extracts key health data (BP, Sugar, Weight)
+
 📊 Health Trends & Visual Analytics – Interactive charts showing vitals over time using Chart.js
+
 👤 Profile Management – View/Edit profile for both doctors and patients
+
 💬 Doctor Feedback & Ratings – Patients can rate doctors post-appointment
+
 📝 Doctor Prescription Uploads – Doctors can write and upload text-based prescriptions
+
 📁 View Past Appointments & Reports
 
 🧰 Tools:
