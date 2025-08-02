@@ -26,6 +26,7 @@ Git & GitHub (for version control)
 Vite (for faster React frontend build)
 
 💻 Technologies Used:
+
 Frontend: React.js, Vite, Tailwind CSS, CSS Modules, Chart.js
 
 Backend: Node.js, Express.js, MongoDB Atlas, JWT Auth, Tesseract.js (OCR)
