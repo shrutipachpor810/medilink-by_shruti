@@ -25,7 +25,21 @@ const createAppointment = async (req, res) => {
 const getAppointments = async (req, res) => {
   try {
     const role = req.query.role;
-    const filter = role === "doctor" ? { doctorId: req.user._id } : { patientId: req.user._id };
+    const selectedPatientId = req.query.patientId; // Optional: for doctors selecting a patient
+
+    let filter = {};
+
+    if (role === "doctor") {
+      filter.doctorId = req.user._id;
+
+      // If doctor has selected a specific patient from dropdown
+      if (selectedPatientId) {
+        filter.patientId = selectedPatientId;
+      }
+    } else {
+      // For patient
+      filter.patientId = req.user._id;
+    }
 
     console.log("🧠 ROLE:", role);
     console.log("👤 USER ID:", req.user._id);
@@ -39,6 +53,7 @@ const getAppointments = async (req, res) => {
     res.status(500).json({ message: "Error fetching appointments", error });
   }
 };
+
 
 
 const updateAppointmentStatus = async (req, res) => {
@@ -58,5 +73,6 @@ const updateAppointmentStatus = async (req, res) => {
     res.status(500).json({ message: "Error updating appointment", error });
   }
 };
+
 
 export { createAppointment, getAppointments, updateAppointmentStatus };

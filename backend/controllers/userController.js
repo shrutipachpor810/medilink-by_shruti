@@ -48,5 +48,15 @@ const getDoctors = async (req, res) => {
   }
 };
 
+//getPatients
+const getPatients = async (req, res) => {
+  try {
+    const patients = await User.find({ role: "patient" }).select("-password"); // hide password
+    res.json(patients);
+  } catch (error) {
+    console.error("Error fetching patients:", error);
+    res.status(500).json({ message: "Failed to fetch patients" });
+  }
+};
 
-export { getProfile, updateProfile,getDoctors };
+export { getProfile, updateProfile,getDoctors, getPatients };

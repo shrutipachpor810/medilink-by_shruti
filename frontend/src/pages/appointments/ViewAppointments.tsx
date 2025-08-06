@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Heart, ArrowLeft, Calendar, Clock, User, FileText } from "lucide-react";
+import { Heart, ArrowLeft, Calendar, Clock, User, FileText,Stethoscope } from "lucide-react";
 import { format } from "date-fns";
 import axios from "../../utils/axios";
 
@@ -85,7 +85,7 @@ const ViewAppointments = () => {
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <Heart className="h-8 w-8 text-blue-600" />
+                <Stethoscope className="h-8 w-8 text-green-600" />
                 <h1 className="text-2xl font-bold text-slate-800">MediLink</h1>
               </div>
             </div>

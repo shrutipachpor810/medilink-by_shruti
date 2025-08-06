@@ -11,11 +11,17 @@ import PatientDashboard from "./pages/dashboard/PatientDashboard";
 import DoctorDashboard from "./pages/dashboard/DoctorDashboard";
 import BookAppointment from "./pages/appointments/BookAppointment";
 import ViewAppointments from "./pages/appointments/ViewAppointments";
+import PatientFeedback from "./pages/feedbacks/PatientFeedback";
+import DoctorFeedback from "./pages/feedbacks/DoctorsFeedback";
 import UploadReport from "./pages/reports/UploadReport";
 import ViewReports from "./pages/reports/ViewReports";
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import RoleBasedDashboard from "./pages/RoleBasedDashboard";
+import DoctorPrescriptionUploader from "./pages/prescription/DoctorPrescriptionUploader";
+import PatientPrescriptionViewer from "./pages/prescription/PatientPrescriptionViewer";
+import PatientHealthRecord from "./pages/healthrecord/PatientHealthRecord";
+import DoctorHealthRecord from "./pages/healthrecord/DoctorHeathRecord";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -47,10 +53,58 @@ const App = () => (
             }
           />
           <Route
+            path="/give-feedback"
+            element={
+              <ProtectedRoute allowedRoles={['patient']}>
+                <PatientFeedback />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/take-feedback"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <DoctorFeedback />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/view-reports"
             element={
               <ProtectedRoute allowedRoles={['doctor']}>
                 <ViewReports />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/upload-prescription"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <DoctorPrescriptionUploader />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-prescription"
+            element={
+              <ProtectedRoute allowedRoles={['patient']}>
+                <PatientPrescriptionViewer/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-health-records"
+            element={
+              <ProtectedRoute allowedRoles={['doctor']}>
+                <DoctorHealthRecord/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/upload-health-records"
+            element={
+              <ProtectedRoute allowedRoles={['patient']}>
+                <PatientHealthRecord/>
               </ProtectedRoute>
             }
           />

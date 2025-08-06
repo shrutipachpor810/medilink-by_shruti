@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Heart, FileText, Calendar, Clock, User, Eye, Download } from "lucide-react";
+import { ArrowLeft, FileText, Calendar, Clock, User, Eye, Download, Stethoscope } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 const ViewReports = () => {
   const [reports, setReports] = useState<any[]>([]);
@@ -76,29 +78,23 @@ const ViewReports = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex items-center">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="mr-4 text-gray-600 hover:text-gray-900"
-            onClick={() => {
-              // Replace this with your navigation method:
-              // For React Router: navigate(-1) or navigate('/dashboard')
-              // For Next.js: router.back() or router.push('/dashboard')
-              // For now, using browser history:
-              window.history.back();
-            }}
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
-          <div className="flex items-center">
-            <Heart className="h-6 w-6 text-blue-600 mr-2 fill-current" />
-            <span className="text-xl font-semibold text-gray-900">MediLink</span>
-          </div>
-        </div>
-      </div>
+      <header className="bg-white shadow-sm border-b border-slate-200">
+              <div className="container mx-auto px-6 py-4">
+                <div className="flex items-center space-x-4">
+                  <Link to="/doctor-dashboard">
+                    <Button variant="ghost" size="sm">
+                      <ArrowLeft className="h-4 w-4 mr-2" />
+                      Back
+                    </Button>
+                  </Link>
+                  <div className="flex items-center space-x-2">
+                    <Stethoscope className="h-8 w-8 text-green-600" />
+                    <h1 className="text-2xl font-bold text-slate-800">MediLink</h1>
+                  </div>
+                </div>
+              </div>
+            </header>
+      
 
       <div className="max-w-6xl mx-auto p-6">
         {/* Page Title */}

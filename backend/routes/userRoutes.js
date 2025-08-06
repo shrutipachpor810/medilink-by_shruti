@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProfile, updateProfile, getDoctors } from '../controllers/userController.js';
+import { getProfile, updateProfile, getDoctors, getPatients } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -12,5 +12,8 @@ router.put('/profile', protect, updateProfile);
 
 //GET /users/doctors
 router.get('/doctors', getDoctors);
+
+//GET /users/patients
+router.get('/patients', getPatients);
 
 export default router;

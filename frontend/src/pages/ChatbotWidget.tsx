@@ -70,13 +70,13 @@ const ChatbotWidget = () => {
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="p-4 bg-blue-600 text-white rounded-full shadow-lg"
+          className="p-4 bg-green-600 text-white rounded-full shadow-lg"
         >
           <FaRobot size={24} />
         </button>
       ) : (
         <div className="w-80 h-96 bg-white rounded-xl shadow-2xl flex flex-col">
-          <div className="flex justify-between items-center px-4 py-2 bg-blue-500 text-white rounded-t-xl">
+          <div className="flex justify-between items-center px-4 py-2 bg-green-500 text-white rounded-t-xl">
             <span>MediLink Chatbot</span>
             <button onClick={() => setOpen(false)}>
               <IoMdClose size={20} />
@@ -111,7 +111,7 @@ const ChatbotWidget = () => {
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-green-500 text-white px-4 py-2 rounded"
               onClick={handleSend}
               disabled={loading}
             >

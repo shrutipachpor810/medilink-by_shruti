@@ -1,4 +1,5 @@
-
+import { Link } from "react-router-dom";
+import { ArrowLeft, Stethoscope, User, Save, Edit, Info } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Stethoscope, User, Save, Edit } from "lucide-react";
 import { toast } from "sonner";
 
 interface UserProfile {
@@ -19,7 +19,6 @@ interface UserProfile {
   bloodType: string;
   emergencyContact: string;
   medicalHistory: string;
-  // Doctor-specific fields
   specialty?: string;
   licenseNumber?: string;
   experience?: string;
@@ -46,11 +45,11 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = localStorage.getItem("currentUser");
     if (currentUser) {
       const userData = JSON.parse(currentUser);
       setUser(userData);
-      setProfileData(prev => ({
+      setProfileData((prev) => ({
         ...prev,
         fullName: userData.fullName || "",
         email: userData.email || ""
@@ -60,7 +59,7 @@ const ProfilePage = () => {
 
   const handleSave = () => {
     const updatedUser = { ...user, ...profileData };
-    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
     setIsEditing(false);
     toast.success("Profile updated successfully!");
   };
@@ -74,25 +73,38 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 py-8">
-      <div className="container mx-auto px-4 max-w-4xl">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-3">
-            <Stethoscope className="h-8 w-8 text-green-600" />
-            <h1 className="text-3xl font-bold text-slate-800">MediLink</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50">
+      {/* Full-width Header */}
+      <header className="bg-white shadow-sm border-b border-slate-200 mb-8 w-full">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Link to={user.role === "doctor" ? "/doctor-dashboard" : "/patient-dashboard"}>
+                <Button variant="ghost" size="sm">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back
+                </Button>
+              </Link>
+              <div className="flex items-center space-x-2">
+                <Stethoscope className="h-8 w-8 text-green-600" />
+                <h1 className="text-2xl font-bold text-slate-800">MediLink</h1>
+              </div>
+            </div>
+            <Button
+              onClick={() => setIsEditing(!isEditing)}
+              variant={isEditing ? "outline" : "default"}
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              <Edit className="h-4 w-4 mr-2" />
+              {isEditing ? "Cancel" : "Edit Profile"}
+            </Button>
           </div>
-          <Button
-            onClick={() => setIsEditing(!isEditing)}
-            variant={isEditing ? "outline" : "default"}
-            className="bg-green-600 hover:bg-green-700 text-white"
-          >
-            <Edit className="h-4 w-4 mr-2" />
-            {isEditing ? "Cancel" : "Edit Profile"}
-          </Button>
         </div>
+      </header>
 
-        <div className="grid md:grid-cols-2 gap-8">
+      {/* Main content */}
+      <div className="max-w-7xl mx-auto px-4 pb-8">
+        <div className="grid lg:grid-cols-3 gap-8">
           {/* Personal Information */}
           <Card className="border-0 shadow-lg">
             <CardHeader>
@@ -112,7 +124,6 @@ const ProfilePage = () => {
                   className="h-11"
                 />
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -124,7 +135,6 @@ const ProfilePage = () => {
                   className="h-11"
                 />
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone</Label>
                 <Input
@@ -135,7 +145,6 @@ const ProfilePage = () => {
                   className="h-11"
                 />
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="address">Address</Label>
                 <Textarea
@@ -146,7 +155,6 @@ const ProfilePage = () => {
                   rows={3}
                 />
               </div>
-
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="dateOfBirth">Date of Birth</Label>
@@ -159,7 +167,6 @@ const ProfilePage = () => {
                     className="h-11"
                   />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="gender">Gender</Label>
                   <Select
@@ -203,18 +210,12 @@ const ProfilePage = () => {
                         <SelectValue placeholder="Select blood type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="A+">A+</SelectItem>
-                        <SelectItem value="A-">A-</SelectItem>
-                        <SelectItem value="B+">B+</SelectItem>
-                        <SelectItem value="B-">B-</SelectItem>
-                        <SelectItem value="AB+">AB+</SelectItem>
-                        <SelectItem value="AB-">AB-</SelectItem>
-                        <SelectItem value="O+">O+</SelectItem>
-                        <SelectItem value="O-">O-</SelectItem>
+                        {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map((type) => (
+                          <SelectItem key={type} value={type}>{type}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="emergencyContact">Emergency Contact</Label>
                     <Input
@@ -225,7 +226,6 @@ const ProfilePage = () => {
                       className="h-11"
                     />
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="medicalHistory">Medical History</Label>
                     <Textarea
@@ -251,7 +251,6 @@ const ProfilePage = () => {
                       placeholder="e.g., Cardiology, Pediatrics"
                     />
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="licenseNumber">License Number</Label>
                     <Input
@@ -262,7 +261,6 @@ const ProfilePage = () => {
                       className="h-11"
                     />
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="experience">Years of Experience</Label>
                     <Input
@@ -274,7 +272,6 @@ const ProfilePage = () => {
                       placeholder="e.g., 5 years"
                     />
                   </div>
-
                   <div className="space-y-2">
                     <Label htmlFor="qualifications">Qualifications</Label>
                     <Textarea
@@ -290,11 +287,45 @@ const ProfilePage = () => {
               )}
             </CardContent>
           </Card>
+
+          {/* Tips Card */}
+          <Card className="border-0 shadow-lg bg-green-50">
+            <CardHeader>
+              <CardTitle className="flex items-center text-green-800">
+                <Info className="h-5 w-5 mr-2 text-green-600" />
+                {user.role === "patient" ? "Patient Profile Tips" : "Doctor Profile Tips"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-green-900">
+              <ul className="list-disc pl-5 space-y-1">
+                {user.role === "patient" ? (
+                  <>
+                    <li>Always keep your emergency contact updated.</li>
+                    <li>List any allergies or chronic conditions.</li>
+                    <li>Include all current medications.</li>
+                    <li>Keep your address and phone number accurate.</li>
+                    <li>Review your profile every 3–6 months.</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Ensure your specialty and license are correct.</li>
+                    <li>Add recent certifications and achievements.</li>
+                    <li>Update your years of experience annually.</li>
+                    <li>Maintain a professional photo and bio.</li>
+                    <li>Review patient feedback regularly.</li>
+                  </>
+                )}
+              </ul>
+            </CardContent>
+          </Card>
         </div>
 
         {isEditing && (
           <div className="mt-8 flex justify-center">
-            <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700 text-white px-8 py-3">
+            <Button
+              onClick={handleSave}
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-3"
+            >
               <Save className="h-4 w-4 mr-2" />
               Save Changes
             </Button>

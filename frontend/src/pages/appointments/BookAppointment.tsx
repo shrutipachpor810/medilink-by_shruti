@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart, ArrowLeft, CalendarIcon, Clock } from "lucide-react";
+import { Heart, ArrowLeft, CalendarIcon, Clock, Stethoscope } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -97,7 +97,7 @@ const BookAppointment = () => {
                 </Button>
               </Link>
               <div className="flex items-center space-x-2">
-                <Heart className="h-8 w-8 text-blue-600" />
+                <Stethoscope className="h-8 w-8 text-blue-600" />
                 <h1 className="text-2xl font-bold text-slate-800">MediLink</h1>
               </div>
             </div>
