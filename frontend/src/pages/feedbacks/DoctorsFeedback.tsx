@@ -10,6 +10,8 @@ import {
   Users,
 } from "lucide-react";
 
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const DoctorFeedback = () => {
   const [feedbackList, setFeedbackList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ const DoctorFeedback = () => {
     const fetchFeedback = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5001/api/feedback/${doctorId}`,
+          `${VITE_BACKEND_URL}${doctorId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
