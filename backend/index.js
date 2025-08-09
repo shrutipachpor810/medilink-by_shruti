@@ -26,7 +26,8 @@ const app = express();
 
 // CORS config (allow frontend at 5173 to access backend)
 app.use(cors({
-  origin: 'http://localhost:8081', // frontend dev server
+  origin: ['http://localhost:8081',
+    'https://medilink-frontend-theta.vercel.app'], // frontend dev server
   credentials: true
 }));  
 
