@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { LogOut, ArrowLeft, Stethoscope, Lightbulb } from "lucide-react";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const PatientFeedback = () => {
   const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -20,7 +22,7 @@ const PatientFeedback = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/users/doctors")
+      .get(`${API_URL}/users/doctors`)
       .then((res) => setDoctors(res.data))
       .catch((err) => console.error("Error fetching doctors", err));
   }, []);
@@ -30,7 +32,7 @@ const PatientFeedback = () => {
     const token = localStorage.getItem("token");
 
     axios
-      .get("http://localhost:5001/appointments", {
+      .get(`${API_URL}/appointments`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -51,7 +53,7 @@ const PatientFeedback = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5001/api/feedback",
+        `${API_URL}/api/feedback`,
         {
           doctorId: selectedDoctorId,
           patientId,

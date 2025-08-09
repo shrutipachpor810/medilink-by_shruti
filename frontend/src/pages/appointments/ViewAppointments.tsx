@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Heart, ArrowLeft, Calendar, Clock, User, FileText,Stethoscope } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, FileText,Stethoscope } from "lucide-react";
 import { format } from "date-fns";
 import axios from "../../utils/axios";
 
@@ -38,7 +38,7 @@ const ViewAppointments = () => {
         )
       );
     } catch (err) {
-      console.error("❌ Status update failed:", err);
+      console.error("Status update failed:", err);
     }
   };
 

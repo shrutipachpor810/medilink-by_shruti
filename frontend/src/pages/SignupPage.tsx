@@ -15,6 +15,8 @@ import { Stethoscope, User } from "lucide-react";
 import { toast } from "sonner";
 import axios from "../utils/axios"; // 👈 your axios instance
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const SignupPage = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -35,7 +37,7 @@ const SignupPage = () => {
     }
 
     try {
-      const response = await axios.post("/auth/signup", {
+      const response = await axios.post(`/auth/signup`, {
         name: fullName,
         email,
         password,

@@ -9,7 +9,9 @@ import { Heart, ArrowLeft, Upload, FileText, Eye, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 
-// ✅ Get user + token from localStorage
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
+// Get user + token from localStorage
 const user = JSON.parse(localStorage.getItem("user") || "{}");
 const token = localStorage.getItem("token");
 const patientId = user?._id;
@@ -39,7 +41,7 @@ const UploadReport = () => {
 
   const fetchReports = async () => {
     try {
-      const res = await axios.get(`/reports/${patientId}`, {
+      const res = await axios.get(`${API_URL}/reports/${patientId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUploadedReports(res.data);
@@ -89,7 +91,7 @@ const UploadReport = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("/api/reports/upload", formData, {
+      const res = await axios.post(`${API_URL}/api/reports/upload`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

@@ -1,3 +1,4 @@
+//doesnt contain any api calls
 import React, { useState } from "react";
 import {
   Card,
@@ -7,8 +8,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast"; // ✅ keep this for toast
-import { useNavigate } from "react-router-dom"; // ✅ FIXED: correct place to import useNavigate from
+import { useToast } from "@/components/ui/use-toast"; 
+import { useNavigate } from "react-router-dom"; 
 import {
   BarChart,
   Bar,
@@ -29,6 +30,8 @@ import {
   Shield,
   Apple,
 } from "lucide-react";
+
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const parseBP = (bp: string) => {
   const [systolic, diastolic] = bp.split("/").map(Number);

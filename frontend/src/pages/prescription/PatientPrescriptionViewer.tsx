@@ -19,6 +19,8 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const PatientPrescriptionViewer = () => {
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +41,7 @@ const PatientPrescriptionViewer = () => {
         const patientId = decodedToken.id;
 
         const response = await axios.get(
-          `http://localhost:5001/api/prescriptions/${patientId}`,
+          `${API_URL}/api/prescriptions/${patientId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

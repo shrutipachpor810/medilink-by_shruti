@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -26,7 +28,7 @@ const LoginPage = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("/auth/login", formData);
+      const response = await axios.post(`/auth/login`, formData);
 
       const userData = response.data;
 

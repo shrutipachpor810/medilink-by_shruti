@@ -25,6 +25,8 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const DoctorHealthRecord = () => {
   const [patients, setPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -34,7 +36,7 @@ const DoctorHealthRecord = () => {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/users/patients', {
+      const res = await axios.get(`${API_URL}/users/patients`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPatients(res.data);
@@ -45,7 +47,7 @@ const DoctorHealthRecord = () => {
 
   const fetchAppointments = async (patientId: string) => {
     try {
-      const res = await axios.get('http://localhost:5001/appointments', {
+      const res = await axios.get(`${API_URL}/appointments`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAppointments(res.data.filter((a: any) => a.patientId === patientId));
@@ -56,7 +58,7 @@ const DoctorHealthRecord = () => {
 
   const fetchHealthRecords = async (patientId: string) => {
     try {
-      const res = await axios.get(`http://localhost:5001/api/health-records/${patientId}`, {
+      const res = await axios.get(`${API_URL}/api/health-records/${patientId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setHealthRecords(res.data);

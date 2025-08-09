@@ -31,6 +31,8 @@ interface UserType {
   role: "patient" | "doctor";
 }
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const UploadReport: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
@@ -68,7 +70,7 @@ const UploadReport: React.FC = () => {
     if (!token) return;
     setLoadingDoctors(true);
     try {
-      const res = await axios.get("http://localhost:5001/users/doctors", {
+      const res = await axios.get(`${API_URL}/users/doctors`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setDoctors(res.data);
@@ -113,7 +115,7 @@ const UploadReport: React.FC = () => {
     try {
       setUploadStatus("Uploading & extracting OCR...");
       const res = await axios.post(
-        "http://localhost:5001/reports/upload",
+        `${API_URL}/reports/upload`,
         formData,
         {
           headers: {

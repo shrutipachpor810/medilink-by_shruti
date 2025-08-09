@@ -41,7 +41,7 @@ const BookAppointment = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const { data } = await axios.get("/users/doctors");
+        const { data } = await axios.get(`/users/doctors`);
         setDoctors(data);
       } catch (err: any) {
         console.error("Error fetching doctors:", err);
@@ -73,7 +73,7 @@ const BookAppointment = () => {
         message: `${formData.reason}${formData.notes ? " - " + formData.notes : ""}`
       };
 
-      await axios.post("/appointments", payload);
+      await axios.post(`/appointments`, payload);
       toast.success("Appointment booked successfully!");
       navigate("/patient-dashboard");
     } catch (err: any) {

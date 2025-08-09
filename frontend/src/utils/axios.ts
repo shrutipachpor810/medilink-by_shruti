@@ -1,11 +1,17 @@
 import axios, { AxiosInstance } from 'axios';
 
-// Create an Axios instance with base URL
+// Read from environment variable (Vite requires "VITE_" prefix)
+const API_URL: string = import.meta.env.VITE_BACKEND_URL as string;
+
+
+
 const instance: AxiosInstance = axios.create({
-  baseURL: 'https://medilink-uz08.onrender.com', // Use your deployed backend URL instead of localhost
+  baseURL: API_URL || 'http://localhost:5001', // Fallback for local dev
 });
 
-// Automatically attach token from localStorage (if present)
+console.log("Backend URL:", import.meta.env.VITE_BACKEND_URL);
+
+// Attach token automatically if available
 const token: string | null = localStorage.getItem('token');
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;

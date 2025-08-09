@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { FaRobot } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const stripMarkdown = (text: string) => {
   return text
     .replace(/\*\*(.*?)\*\*/g, "$1")  // bold
@@ -35,7 +37,7 @@ const ChatbotWidget = () => {
   setInput("");
 
   try {
-    const res = await fetch("http://localhost:5001/chatbot", {
+    const res = await fetch(`${API_URL}/chatbot`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
