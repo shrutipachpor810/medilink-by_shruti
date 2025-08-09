@@ -8,7 +8,6 @@ import {
   User,
   Clock,
   Shield,
-  Heart,
   Star,
   TrendingUp,
   HeartPulse,
