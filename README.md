@@ -1,7 +1,7 @@
 🩺 MediLink – Smart Medical Appointment & Health Record System
 MediLink is a full-stack healthcare web application built using the MERN stack, designed to streamline the medical appointment process for both patients and doctors.
 
-🔗 Built in collaboration with https://github.com/shrutipachpor810
+🔗 Built in collaboration with [https://github.com/prachi](https://github.com/prachi-madane14/)
 
 ✨ Features:
 🔐 Authentication & Role-based Access – Secure signup/login with roles (Doctor/Patient)
@@ -31,3 +31,4 @@ Frontend: React.js, Vite, Tailwind CSS, CSS Modules, Chart.js
 
 Backend: Node.js, Express.js, MongoDB Atlas, JWT Auth, Tesseract.js (OCR)
 
+Deployed URL:https://medilink-frontend-theta.vercel.app/
