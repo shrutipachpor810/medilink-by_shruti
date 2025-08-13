@@ -10,7 +10,7 @@ MediLink is a full-stack healthcare web application built using the MERN stack, 
 
 📄 OCR-based Medical Report Upload – Extracts key health data (BP, Sugar, Weight)
 
-📊 Health Trends & Visual Analytics – Interactive charts showing vitals over time using Chart.js
+📊 Health Trends & Visual Analytics – Interactive charts showing vitals over time using Recharts
 
 👤 Profile Management – View/Edit profile for both doctors and patients
 
